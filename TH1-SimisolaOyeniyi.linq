@@ -34,8 +34,8 @@ Programs
 .Where(p => p.ProgramCourses.Count(pc => pc.Required) >= 22)
 .Select(p =>new
 {
- School=p.Schools.SchoolName,
- Program=p.ProgramName,
+ School = p.Schools.SchoolName,
+ Program = p.ProgramName,
  RequiredCourseCount = p.ProgramCourses.Count(pc => pc.Required),
  OptionalCourseCount = p.ProgramCourses.Count() - p.ProgramCourses.Count(pc => pc.Required)
 } )
@@ -44,3 +44,15 @@ Programs
 
 
 //Question 3
+Students
+.Where(s => s.StudentPayments.Count == 0 
+&& s.Countries.CountryName.ToUpper() != "CANADA")
+.OrderBy(s => s.LastName)
+.Select(s => new
+{
+StudentNumber = s.StudentNumber,
+CountryName = s.Countries.CountryName,
+FullName = s.FirstName + ' ' + s.LastName,
+ClubMembershipCount = s.ClubMembers.Count() == 0 ? "None" : s.ClubMembers.Count().ToString()
+})
+.Dump();
