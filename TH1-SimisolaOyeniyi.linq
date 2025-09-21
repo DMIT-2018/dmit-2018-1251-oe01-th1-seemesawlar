@@ -28,4 +28,19 @@ ClubActivities
 .OrderBy(ca => ca.StartDate)
 .Dump();
 
+
 //Question 2
+Programs
+.Where(p => p.ProgramCourses.Count(pc => pc.Required) >= 22)
+.Select(p =>new
+{
+ School=p.Schools.SchoolName,
+ Program=p.ProgramName,
+ RequiredCourseCount = p.ProgramCourses.Count(pc => pc.Required),
+ OptionalCourseCount = p.ProgramCourses.Count() - p.ProgramCourses.Count(pc => pc.Required)
+} )
+.OrderBy(p => p.Program)
+.Dump();
+
+
+//Question 3
