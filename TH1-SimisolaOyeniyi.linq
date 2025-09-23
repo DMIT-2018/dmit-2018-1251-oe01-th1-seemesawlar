@@ -62,8 +62,7 @@ Students
 Employees
 .Where(e => e.Position.Description == "Instructor" 
 && e.ReleaseDate == null 
-&& e.ClassOfferings.Any(co => co.OfferingID >= 1)
-)
+&& e.ClassOfferings.Count(co => co.OfferingID >= 1) > 0)
 .OrderByDescending(e => e.ClassOfferings.Count)
 .ThenBy(e => e.LastName)
 .Select(e => new
